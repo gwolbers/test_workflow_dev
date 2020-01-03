@@ -1,1 +1,1 @@
-Testbestand om te zien of de action altijd wordt gestart.
+Testbestand om te zien of index.js wat doet.
