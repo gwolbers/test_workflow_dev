@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." name="tpod" default="main">
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef resource="ant/lib/antlib.xml"/>
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 
   <property name="input.dir" value="input"/>
