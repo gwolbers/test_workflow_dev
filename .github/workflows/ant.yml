@@ -18,5 +18,4 @@ jobs:
     - name: Upload result
       uses: actions/upload-artifact@v1
       with:
-        name: temp
-        path: temp/template
+        path: temp
