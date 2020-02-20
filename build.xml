@@ -19,7 +19,7 @@
   <target name="unzip" description="Unzip word-bestand">
     <unzip dest="${temp.dir}/template">
       <path id="input.id">
-        <fileset dir="${input.dir}" includes="*.docx"/>
+        <fileset dir="${input.dir}" includes="input.docx"/>
       </path>
     </unzip>
   </target>
