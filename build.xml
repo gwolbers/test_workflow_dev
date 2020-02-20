@@ -29,12 +29,9 @@
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" classpath="e:/saxon/eej/saxon9ee.jar;e:/saxon/eej/saxon-licenses">
-      <factory name="com.saxonica.config.EnterpriseTransformerFactory">
-        <attribute name="http://saxon.sf.net/feature/xsltSchemaAware" value="true"/>
-        <attribute name="http://saxon.sf.net/feature/schema-validation-mode" value="strict"/>
-        <attribute name="http://saxon.sf.net/feature/xsd-version" value="1.1"/>
-      </factory>
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="saxon-classpath" />
     </xslt>
   </target>
 
