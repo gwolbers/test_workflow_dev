@@ -30,11 +30,7 @@
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
     <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true">
-      <param name="base.dir" expression="${basedir}"/>
-      <param name="input.name" expression="${input.name}"/>
-      <factory name="net.sf.saxon.TransformerFactoryImpl">
-        <attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/>
-      </factory>
+      <factory name="com.saxonica.config.EnterpriseTransformerFactory"/>
     </xslt>
   </target>
 
