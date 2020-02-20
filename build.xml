@@ -24,6 +24,17 @@
     </unzip>
   </target>
 
+  <!-- transformeer xml-bestanden -->
+
+  <target name="transform" description="Splits word-bestand">
+    <pathconvert property="input.fullname" refid="input.id"/>
+    <basename property="input.name" file="${input.fullname}"/>
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true">
+      <param name="base.dir" expression="${basedir}"/>
+      <param name="input.name" expression="${input.name}"/>
+    </xslt>
+  </target>
+
   <!-- totale transformatie -->
 
   <target name="main" description="Totale transformatie" depends="init,unzip"/>
