@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." name="tpod" default="main">
 
-  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
-
   <property name="input.dir" value="input"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
@@ -34,6 +32,9 @@
     <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true">
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
+      <factory name="net.sf.saxon.TransformerFactoryImpl">
+        <attribute name="http://saxon.sf.net/feature/traceListenerClass" value="net.sf.saxon.trace.XSLTTraceListener"/>
+      </factory>
     </xslt>
   </target>
 
