@@ -17,7 +17,11 @@
   <!-- unzip word-bestand -->
 
   <target name="unzip" description="Unzip word-bestand">
-    <unzip src="input.docx" dest="${temp.dir}/template"/>
+    <unzip dest="${temp.dir}/template">
+      <path id="input.id">
+        <fileset dir="${input.dir}" includes="*.docx"/>
+      </path>
+    </unzip>
   </target>
 
   <!-- totale transformatie -->
