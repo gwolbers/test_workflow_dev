@@ -41,8 +41,8 @@
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax">
-      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl">
+      <factory name="net.sf.saxon.TransformerFactoryImpl.class"/>
       <classpath refid="build.classpath"/>
     </xslt>
   </target>
