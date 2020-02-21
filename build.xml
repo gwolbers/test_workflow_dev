@@ -2,8 +2,20 @@
 <project basedir="." name="tpod" default="main">
 
   <property name="input.dir" value="input"/>
+  <property name="lib.dir" value="output"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
+
+  <!-- initialiseer jar-files -->
+
+  <target name="jar" description="Initialiseer jar-files">
+    <path id="build.classpath">
+      <fileset dir="${lib.dir}">
+        <include name="**/*.jar"/>
+        <include name="**/*.zip"/>
+      </fileset>
+    </path>
+  </target>
 
   <!-- initialiseer mappen -->
 
@@ -31,7 +43,7 @@
     <basename property="input.name" file="${input.fullname}"/>
     <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-      <classpath refid="saxon-classpath" />
+      <classpath refid="build.classpath"/>
     </xslt>
   </target>
 
