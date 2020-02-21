@@ -74,6 +74,6 @@
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="jar,init,unzip,transform"/>
+  <target name="main" description="Totale transformatie" depends="jar,init,unzip,checksum,transform"/>
 
 </project>
