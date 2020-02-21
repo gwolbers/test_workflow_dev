@@ -2,7 +2,7 @@
 <project basedir="." name="tpod" default="main">
 
   <property name="input.dir" value="input"/>
-  <property name="lib.dir" value="output"/>
+  <property name="lib.dir" value="lib"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
 
@@ -42,7 +42,7 @@
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
     <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl">
-      <factory name="net.sf.saxon.TransformerFactoryImpl.class"/>
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
       <classpath refid="build.classpath"/>
     </xslt>
   </target>
