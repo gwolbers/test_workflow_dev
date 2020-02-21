@@ -36,14 +36,39 @@
     </unzip>
   </target>
 
+  <!-- maak hash-code -->
+
+  <target name="checksum" description="Maak hash-codes">
+    <foreach target="checksum.execute" param="file.fullname">
+      <path>
+        <fileset dir="${temp.dir}/template/word/media"/>
+      </path>
+    </foreach>
+  </target>
+
+  <target name="checksum.execute">
+    <basename property="file.name" file="${file.fullname}"/>
+    <checksum file="${file.fullname}" algorithm="md5" property="file.checksum"/>
+    <xslt in="tpod_checksum.xml" out="${temp.dir}/checksum/${file.name}.xml" style="tpod_checksum.xsl" force="true">
+      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
+      <classpath refid="build.classpath"/>
+      <param name="base.dir" expression="${basedir}"/>
+      <param name="file.name" expression="${file.name}"/>
+      <param name="file.fullname" expression="${file.fullname}"/>
+      <param name="file.checksum" expression="${file.checksum}"/>
+    </xslt>
+  </target>
+
   <!-- transformeer xml-bestanden -->
 
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl">
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" force="true">
       <factory name="net.sf.saxon.TransformerFactoryImpl"/>
       <classpath refid="build.classpath"/>
+      <param name="base.dir" expression="${basedir}"/>
+      <param name="input.name" expression="${input.name}"/>
     </xslt>
   </target>
 
