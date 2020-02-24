@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." name="tpod" default="main">
 
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
+
   <property name="input.dir" value="input"/>
   <property name="lib.dir" value="lib"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
 
-  <!-- initialiseer jar-files -->
-
-  <target name="jar" description="Initialiseer jar-files">
-    <path id="build.classpath">
-      <fileset dir="${lib.dir}">
-        <include name="**/*.jar"/>
-        <include name="**/*.zip"/>
-      </fileset>
-    </path>
-  </target>
-
   <!-- initialiseer mappen -->
 
   <target name="init" description="Initialiseer mappen">
+    <echo>${ant.version}</echo>
     <delete dir="${output.dir}" failonerror="no" includeemptydirs="true"/>
     <mkdir dir="${output.dir}"/>
     <delete dir="${temp.dir}" failonerror="no" includeemptydirs="true"/>
@@ -49,9 +42,7 @@
   <target name="checksum.execute">
     <basename property="file.name" file="${file.fullname}"/>
     <checksum file="${file.fullname}" algorithm="md5" property="file.checksum"/>
-    <xslt in="tpod_checksum.xml" out="${temp.dir}/checksum/${file.name}.xml" style="tpod_checksum.xsl" force="true">
-      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-      <classpath refid="build.classpath"/>
+    <xslt in="tpod_checksum.xml" out="${temp.dir}/checksum/${file.name}.xml" style="tpod_checksum.xsl" force="true" processor="trax">
       <param name="base.dir" expression="${basedir}"/>
       <param name="file.name" expression="${file.name}"/>
       <param name="file.fullname" expression="${file.fullname}"/>
@@ -64,9 +55,7 @@
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" force="true">
-      <factory name="net.sf.saxon.TransformerFactoryImpl"/>
-      <classpath refid="build.classpath"/>
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" force="true" processor="trax">
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
     </xslt>
@@ -74,6 +63,6 @@
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="jar,init,unzip,checksum,transform"/>
+  <target name="main" description="Totale transformatie" depends="init,unzip,checksum,transform"/>
 
 </project>
