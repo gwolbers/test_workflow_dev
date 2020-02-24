@@ -12,7 +12,7 @@
   <!-- initialiseer mappen -->
 
   <target name="init" description="Initialiseer mappen">
-    <echo>${ant.version}</echo>
+    <echo>${java.version}</echo>
     <delete dir="${output.dir}" failonerror="no" includeemptydirs="true"/>
     <mkdir dir="${output.dir}"/>
     <delete dir="${temp.dir}" failonerror="no" includeemptydirs="true"/>
