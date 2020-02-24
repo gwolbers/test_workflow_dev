@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="20.1">
     <meta>
-        <filters directoryPatterns="" filePatterns="github.xpr" positiveFilePatterns="" showHiddenFiles="false"/>
+        <filters directoryPatterns="" filePatterns="tpod_splitsen.xpr" positiveFilePatterns="" showHiddenFiles="false"/>
         <options>
             <serialized version="20.1" xml:space="preserve">
                 <serializableOrderedMap>
@@ -14,7 +14,22 @@
                                 </field>
                                 <field name="scenarioIds">
                                     <list>
-                                        <String>ANT - Kopie</String>
+                                        <String>ANT (with hash-libraries)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>test.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>ANT (with hash-libraries)</String>
                                     </list>
                                 </field>
                                 <field name="scenarioTypes">
@@ -66,7 +81,7 @@
                                     <null/>
                                 </field>
                                 <field name="name">
-                                    <String>ANT - Kopie</String>
+                                    <String>ANT (with hash-libraries)</String>
                                 </field>
                                 <field name="baseURL">
                                     <null/>
@@ -145,7 +160,19 @@
                                 </field>
                                 <field name="extensionURLs">
                                     <String-array>
+                                        <String>${oxygenHome}/</String>
+                                        <String>${oxygenHome}/classes/</String>
+                                        <String>${oxygenHome}/lib/oxygen.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenEclipse.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenAuthor.jar</String>
+                                        <String>${oxygenHome}/lib/oxygenAuthorEclipse.jar</String>
+                                        <String>${oxygenHome}/lib/oxygen-basic-utilities.jar</String>
+                                        <String>${oxygenHome}/lib/resolver.jar</String>
+                                        <String>${oxygenHome}/lib/xercesImpl.jar</String>
+                                        <String>${oxygenHome}/lib/xml-apis.jar</String>
+                                        <String>${oxygenHome}/lib/log4j.jar</String>
                                         <String>${oxygenHome}/lib/saxon9*.jar</String>
+                                        <String>${oxygenHome}/lib/guava-*.jar</String>
                                         <String>${oxygenHome}/lib/commons-codec-1.9.jar</String>
                                     </String-array>
                                 </field>
@@ -156,7 +183,8 @@
             </serialized>
         </options>
     </meta>
-    <projectTree name="github.xpr">
-        <folder path="."/>
+    <projectTree name="tpod_splitsen.xpr">
+        <file name="build.xml"/>
+        <file name="tpod_splitsen.xsl"/>
     </projectTree>
 </project>
