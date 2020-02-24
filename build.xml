@@ -63,6 +63,6 @@
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="init,unzip,checksum,transform"/>
+  <target name="main" description="Totale transformatie" depends="init,unzip"/>
 
 </project>
