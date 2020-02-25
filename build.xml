@@ -2,7 +2,7 @@
 <project basedir="." name="tpod" default="main">
 
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
-  <!--taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/-->
+  <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 
   <property name="input.dir" value="input"/>
   <property name="output.dir" value="output"/>
@@ -137,6 +137,6 @@
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="init,unzip,checksum"/>
+  <target name="main" description="Totale transformatie" depends="init,unzip,checksum,media"/>
 
 </project>
