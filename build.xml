@@ -11,6 +11,7 @@
   <!-- initialiseer mappen -->
 
   <target name="init" description="Initialiseer mappen">
+    <echo message="${ant.version}"/>
     <delete dir="${output.dir}" failonerror="no" includeemptydirs="true"/>
     <mkdir dir="${output.dir}"/>
     <delete dir="${temp.dir}" failonerror="no" includeemptydirs="true"/>
