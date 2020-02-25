@@ -5,8 +5,19 @@
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 
   <property name="input.dir" value="input"/>
+  <property name="lib.dir" value="lib"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
+
+  <!-- initialiseer jar-files -->
+
+  <target name="jar" description="Initialiseer jar-files">
+    <path id="build.classpath">
+      <fileset dir="${lib.dir}">
+        <include name="commons-codec-1.9.jar"/>
+      </fileset>
+    </path>
+  </target>
 
   <!-- initialiseer mappen -->
 
@@ -75,7 +86,7 @@
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true">
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true" classpathref="build.classpath">
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
     </xslt>
