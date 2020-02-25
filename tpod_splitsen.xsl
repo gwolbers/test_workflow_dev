@@ -39,8 +39,6 @@
               <xsl:variable name="check">
                 <xsl:apply-templates select="current-group()" mode="check"/>
               </xsl:variable>
-              <xsl:variable name="test" select="fn:function-available('digest:md5Hex')"/>
-              <xsl:message select="$test"/>
               <xsl:value-of select="digest:md5Hex(fn:string-join($check))"/>
             </xsl:variable>
             <xsl:element name="document">
