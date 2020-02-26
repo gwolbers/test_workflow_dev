@@ -86,7 +86,8 @@
   <target name="transform" description="Splits word-bestand">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true" classpathref="build.classpath">
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true" classpathref="${build.classpath}">
+      <factory name="org.apache.commons.codec.digest.DigestUtils"/>
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
     </xslt>
