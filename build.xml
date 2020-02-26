@@ -9,7 +9,7 @@
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
 
-  <!-- initialiseer jar-files -->
+  <!-- initialiseer jar-files tijdelijk -->
 
   <target name="jar" description="Initialiseer jar-files">
     <path id="build.classpath">
