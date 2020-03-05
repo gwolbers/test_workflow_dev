@@ -33,14 +33,13 @@
           <!-- voorwerk -->
         </xsl:when>
         <xsl:otherwise>
-          <!-- tekstfragmenten -->
+          <!-- tekstfragmenten iets -->
           <xsl:for-each-group select="current-group()" group-starting-with="w:p[fn:index-of($TOC,(w:pPr/w:pStyle/@w:val,'Geen')[1]) gt 0]">
             <xsl:variable name="checksum">
               <xsl:variable name="check">
                 <xsl:apply-templates select="current-group()" mode="check"/>
               </xsl:variable>
-              <xsl:value-of select="string('[hash]')"/>
-              <!--xsl:value-of select="digest:md5Hex(fn:string-join($check))"/-->
+              <xsl:value-of select="digest:md5Hex(fn:string-join($check))"/>
             </xsl:variable>
             <xsl:element name="document">
               <xsl:attribute name="index" select="position()"/>
