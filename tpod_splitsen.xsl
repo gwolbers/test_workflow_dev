@@ -39,7 +39,8 @@
               <xsl:variable name="check">
                 <xsl:apply-templates select="current-group()" mode="check"/>
               </xsl:variable>
-              <xsl:value-of select="digest:md5Hex(fn:string-join($check))"/>
+              <xsl:value-of select="string('[hash]')"/>
+              <!--xsl:value-of select="digest:md5Hex(fn:string-join($check))"/-->
             </xsl:variable>
             <xsl:element name="document">
               <xsl:attribute name="index" select="position()"/>
