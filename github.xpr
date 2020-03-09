@@ -6,6 +6,29 @@
             <serialized version="20.1" xml:space="preserve">
                 <serializableOrderedMap>
                     <entry>
+<<<<<<< HEAD
+=======
+                        <String>scenario.associations</String>
+                        <scenarioAssociation-array>
+                            <scenarioAssociation>
+                                <field name="url">
+                                    <String>build.xml</String>
+                                </field>
+                                <field name="scenarioIds">
+                                    <list>
+                                        <String>ANT (met hash-libraries)</String>
+                                    </list>
+                                </field>
+                                <field name="scenarioTypes">
+                                    <list>
+                                        <String>ANT</String>
+                                    </list>
+                                </field>
+                            </scenarioAssociation>
+                        </scenarioAssociation-array>
+                    </entry>
+                    <entry>
+>>>>>>> 37ef3f1c0fac5fd9d7283e7625a8061a679ca86e
                         <String>scenarios</String>
                         <scenario-array>
                             <antScenario>

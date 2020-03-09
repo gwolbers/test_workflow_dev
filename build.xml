@@ -87,7 +87,11 @@
   <target name="split.xml" description="Splits word-bestand naar xml">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
+<<<<<<< HEAD
     <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_xml.xsl" processor="trax" force="true">
+=======
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true">
+>>>>>>> 37ef3f1c0fac5fd9d7283e7625a8061a679ca86e
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
     </xslt>
@@ -149,6 +153,10 @@
 
   <!-- totale transformatie -->
 
+<<<<<<< HEAD
   <target name="main" description="Totale transformatie" depends="init,unzip,split.txt,checksum,media,split.xml,compile,zip,manifest"/>
+=======
+  <target name="main" description="Totale transformatie" depends="init,unzip,checksum,media"/>
+>>>>>>> 37ef3f1c0fac5fd9d7283e7625a8061a679ca86e
 
 </project>

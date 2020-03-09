@@ -34,7 +34,7 @@
           <!-- voorwerk -->
         </xsl:when>
         <xsl:otherwise>
-          <!-- tekstfragmenten -->
+          <!-- tekstfragmenten iets -->
           <xsl:for-each-group select="current-group()" group-starting-with="w:p[fn:index-of($TOC,(w:pPr/w:pStyle/@w:val,'Geen')[1]) gt 0]">
             <xsl:variable name="index" select="position()"/>
             <xsl:variable name="checksum" select="$checksum.text[$index]/checksum"/>
