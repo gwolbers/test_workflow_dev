@@ -10,16 +10,16 @@
   <xsl:param name="checksum.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','checksum'),'/')"/>
 
   <!-- gebruikte documenten -->
-  <xsl:param name="comments" select="fn:string-join(('file:',$word.dir,'comments.xml'),'/')"/>
-  <xsl:param name="endnotes" select="fn:string-join(('file:',$word.dir,'endnotes.xml'),'/')"/>
-  <xsl:param name="footnotes" select="fn:string-join(('file:',$word.dir,'footnotes.xml'),'/')"/>
-  <xsl:param name="numbering" select="fn:string-join(('file:',$word.dir,'numbering.xml'),'/')"/>
-  <xsl:param name="settings" select="fn:string-join(('file:',$word.dir,'settings.xml'),'/')"/>
-  <xsl:param name="styles" select="fn:string-join(('file:',$word.dir,'styles.xml'),'/')"/>
+  <xsl:param name="comments" select="fn:string-join(($word.dir,'comments.xml'),'/')"/>
+  <xsl:param name="endnotes" select="fn:string-join(($word.dir,'endnotes.xml'),'/')"/>
+  <xsl:param name="footnotes" select="fn:string-join(($word.dir,'footnotes.xml'),'/')"/>
+  <xsl:param name="numbering" select="fn:string-join(($word.dir,'numbering.xml'),'/')"/>
+  <xsl:param name="settings" select="fn:string-join(($word.dir,'settings.xml'),'/')"/>
+  <xsl:param name="styles" select="fn:string-join(($word.dir,'styles.xml'),'/')"/>
 
-  <xsl:param name="document.rels" select="fn:string-join(('file:',$word.dir,'_rels/document.xml.rels'),'/')"/>
-  <xsl:param name="header2.rels" select="fn:string-join(('file:',$word.dir,'_rels/header2.xml.rels'),'/')"/>
-  <xsl:param name="header3.rels" select="fn:string-join(('file:',$word.dir,'_rels/header3.xml.rels'),'/')"/>
+  <xsl:param name="document.rels" select="fn:string-join(($word.dir,'_rels/document.xml.rels'),'/')"/>
+  <xsl:param name="header2.rels" select="fn:string-join(($word.dir,'_rels/header2.xml.rels'),'/')"/>
+  <xsl:param name="header3.rels" select="fn:string-join(($word.dir,'_rels/header3.xml.rels'),'/')"/>
 
   <!-- gebruikte collecties -->
   <xsl:param name="checksum.media" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file[list='media']"/>
