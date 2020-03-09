@@ -27,7 +27,7 @@
         <xsl:value-of select="fn:string-join((fn:format-number($index,'000'),my:uri($check)),'_')"/>
       </xsl:variable>
       <!-- maak document.txt -->
-      <xsl:result-document href="{concat(fn:string-join(('file:',$text.dir,$href),'/'),'.txt')}" method="text">
+      <xsl:result-document href="{concat(fn:string-join(($text.dir,$href),'/'),'.txt')}" method="text">
         <xsl:apply-templates select="current-group()"/>
       </xsl:result-document>
     </xsl:for-each-group>
