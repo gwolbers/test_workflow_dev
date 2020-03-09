@@ -10,8 +10,8 @@
   <xsl:param name="text.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','text'),'/')"/>
 
   <!-- gebruikte documenten -->
-  <xsl:param name="endnotes" select="fn:string-join(('file:',$word.dir,'endnotes.xml'),'/')"/>
-  <xsl:param name="footnotes" select="fn:string-join(('file:',$word.dir,'footnotes.xml'),'/')"/>
+  <xsl:param name="endnotes" select="fn:string-join(($word.dir,'endnotes.xml'),'/')"/>
+  <xsl:param name="footnotes" select="fn:string-join(($word.dir,'footnotes.xml'),'/')"/>
 
   <!-- splits bestand op op basis van inhoudsopgave -->
   <xsl:param name="TOC" select="('Kop1','Kop2','Kop3','Kop4','Kop5','Kop2bijlage','Kop3bijlage')"/>

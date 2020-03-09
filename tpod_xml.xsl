@@ -22,8 +22,8 @@
   <xsl:param name="header3.rels" select="fn:string-join(($word.dir,'_rels/header3.xml.rels'),'/')"/>
 
   <!-- gebruikte collecties -->
-  <xsl:param name="checksum.media" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file[list='media']"/>
-  <xsl:param name="checksum.text" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file[list='text']"/>
+  <xsl:param name="checksum.media" select="collection(concat($checksum.dir,'?select=*.xml'))//file[list='media']"/>
+  <xsl:param name="checksum.text" select="collection(concat($checksum.dir,'?select=*.xml'))//file[list='text']"/>
 
   <!-- verwijzingen -->
   <xsl:param name="reference.name" select="//w:instrText[tokenize(.,'\s+')[2]='REF']/text()/tokenize(.,'\s+')[3]"/>

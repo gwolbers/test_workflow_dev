@@ -14,13 +14,13 @@
    <xsl:param name="word.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','template','word'),'/')"/>
 
    <!-- verwijzingen naar gebruikte documenten -->
-   <xsl:param name="comments" select="fn:string-join(('file:',$word.dir,'comments.xml'),'/')"/>
-   <xsl:param name="endnotes" select="fn:string-join(('file:',$word.dir,'endnotes.xml'),'/')"/>
-   <xsl:param name="footnotes" select="fn:string-join(('file:',$word.dir,'footnotes.xml'),'/')"/>
-   <xsl:param name="numbering" select="fn:string-join(('file:',$word.dir,'numbering.xml'),'/')"/>
-   <xsl:param name="relations" select="fn:string-join(('file:',$word.dir,'_rels/document.xml.rels'),'/')"/>
-   <xsl:param name="settings" select="fn:string-join(('file:',$word.dir,'settings.xml'),'/')"/>
-   <xsl:param name="styles" select="fn:string-join(('file:',$word.dir,'styles.xml'),'/')"/>
+   <xsl:param name="comments" select="fn:string-join(($word.dir,'comments.xml'),'/')"/>
+   <xsl:param name="endnotes" select="fn:string-join(($word.dir,'endnotes.xml'),'/')"/>
+   <xsl:param name="footnotes" select="fn:string-join(($word.dir,'footnotes.xml'),'/')"/>
+   <xsl:param name="numbering" select="fn:string-join(($word.dir,'numbering.xml'),'/')"/>
+   <xsl:param name="relations" select="fn:string-join(($word.dir,'_rels/document.xml.rels'),'/')"/>
+   <xsl:param name="settings" select="fn:string-join(($word.dir,'settings.xml'),'/')"/>
+   <xsl:param name="styles" select="fn:string-join(($word.dir,'styles.xml'),'/')"/>
 
    <!-- checksum maakt een tijdelijk bestand met informatie over afbeeldingen die in tpod_splitsen wordt gebruikt -->
 
