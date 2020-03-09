@@ -2,7 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" exclude-result-prefixes="xs" version="2.0">
    <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8" standalone="yes"/>
 
-   <xsl:param name="base.dir" select="string('C:\Werkbestanden\Geonovum\Beheer\tpod_splitsen')"/>
+   <!-- tpod_checksum maakt xml-fragmenten t.b.v. de checksum -->
+
+   <xsl:param name="base.dir"/>
    <xsl:param name="file.name"/>
    <xsl:param name="file.fullname"/>
    <xsl:param name="file.type" select="tokenize($file.name,'\.')[last()]"/>
@@ -10,8 +12,6 @@
 
    <!-- verwijzingen naar gebruikte directories -->
    <xsl:param name="word.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','template','word'),'/')"/>
-   <xsl:param name="media.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','template','word','media'),'/')"/>
-   <xsl:param name="checksum.dir" select="fn:string-join((fn:tokenize($base.dir,'\\'),'temp','checksum'),'/')"/>
 
    <!-- verwijzingen naar gebruikte documenten -->
    <xsl:param name="comments" select="fn:string-join(('file:',$word.dir,'comments.xml'),'/')"/>
@@ -44,9 +44,21 @@
          <xsl:element name="type">
             <xsl:value-of select="$file.type"/>
          </xsl:element>
-         <xsl:element name="rename">
-            <xsl:value-of select="concat('image_',$file.checksum,'.',$file.type)"/>
-         </xsl:element>
+         <xsl:choose>
+            <xsl:when test="fn:index-of(('txt'),$file.type) gt 0">
+               <xsl:element name="list">
+                  <xsl:value-of select="string('text')"/>
+               </xsl:element>
+            </xsl:when>
+            <xsl:when test="fn:index-of(('emf','jpeg','jpg','png','svg','wmf'),$file.type) gt 0">
+               <xsl:element name="rename">
+                  <xsl:value-of select="concat('image_',$file.checksum,'.',$file.type)"/>
+               </xsl:element>
+               <xsl:element name="list">
+                  <xsl:value-of select="string('media')"/>
+               </xsl:element>
+            </xsl:when>
+         </xsl:choose>
          <xsl:element name="checksum">
             <xsl:value-of select="$file.checksum"/>
          </xsl:element>

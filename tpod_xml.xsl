@@ -2,7 +2,7 @@
 <xsl:stylesheet version="2.0" xmlns:my="functions" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:digest="java:org.apache.commons.codec.digest.DigestUtils" xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:rel="http://schemas.openxmlformats.org/package/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp14="http://schemas.microsoft.com/office/word/2010/wordprocessingDrawing" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:a14="http://schemas.microsoft.com/office/drawing/2010/main" xmlns:asvg="http://schemas.microsoft.com/office/drawing/2016/SVG/main" mc:Ignorable="w14 wp14">
   <xsl:output method="xml" version="1.0" indent="yes" encoding="UTF-8" standalone="yes"/>
 
-  <xsl:param name="base.dir" select="string('C:\Werkbestanden\Geonovum\Beheer\tpod_splitsen')"/>
+  <xsl:param name="base.dir" select="string('C:/Users/g.wolbers/Documents/GitHub/test_workflow')"/>
   <xsl:param name="input.name"/>
 
   <!-- gebruikte directories -->
@@ -22,7 +22,8 @@
   <xsl:param name="header3.rels" select="fn:string-join(('file:',$word.dir,'_rels/header3.xml.rels'),'/')"/>
 
   <!-- gebruikte collecties -->
-  <xsl:param name="checksum.list" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file"/>
+  <xsl:param name="checksum.media" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file[list='media']"/>
+  <xsl:param name="checksum.text" select="collection(concat('file:/',$checksum.dir,'?select=*.xml'))//file[list='text']"/>
 
   <!-- verwijzingen -->
   <xsl:param name="reference.name" select="//w:instrText[tokenize(.,'\s+')[2]='REF']/text()/tokenize(.,'\s+')[3]"/>
@@ -35,14 +36,10 @@
         <xsl:otherwise>
           <!-- tekstfragmenten -->
           <xsl:for-each-group select="current-group()" group-starting-with="w:p[fn:index-of($TOC,(w:pPr/w:pStyle/@w:val,'Geen')[1]) gt 0]">
-            <xsl:variable name="checksum">
-              <xsl:variable name="check">
-                <xsl:apply-templates select="current-group()" mode="check"/>
-              </xsl:variable>
-              <xsl:value-of select="digest:md5Hex(fn:string-join($check))"/>
-            </xsl:variable>
+            <xsl:variable name="index" select="position()"/>
+            <xsl:variable name="checksum" select="$checksum.text[$index]/checksum"/>
             <xsl:element name="document">
-              <xsl:attribute name="index" select="position()"/>
+              <xsl:attribute name="index" select="$index"/>
               <xsl:element name="checksum">
                 <xsl:value-of select="$checksum"/>
               </xsl:element>
@@ -50,7 +47,7 @@
                 <xsl:element name="bookmark">
                   <xsl:attribute name="id" select="@w:id"/>
                   <xsl:attribute name="name" select="@w:name"/>
-                  <xsl:value-of select="fn:string-join(('_Ref',$checksum,position()),'_')"/>
+                  <xsl:value-of select="fn:string-join(('_Ref',$checksum,$index),'_')"/>
                 </xsl:element>
               </xsl:for-each>
             </xsl:element>
@@ -80,17 +77,17 @@
       <xsl:element name="afbeelding">
         <xsl:attribute name="index" select="position()"/>
         <xsl:element name="naam">
-          <xsl:value-of select="$checksum.list[not(id)]/rename"/>
+          <xsl:value-of select="$checksum.media[not(id)]/rename"/>
         </xsl:element>
         <xsl:element name="omgevingswetbesluit">
           <xsl:attribute name="id" select="$omgevingswetbesluit.id"/>
           <xsl:value-of select="$omgevingswetbesluit"/>
         </xsl:element>
         <xsl:element name="type">
-          <xsl:value-of select="$checksum.list[not(id)]/type"/>
+          <xsl:value-of select="$checksum.media[not(id)]/type"/>
         </xsl:element>
         <xsl:element name="checksum">
-          <xsl:value-of select="$checksum.list[not(id)]/checksum"/>
+          <xsl:value-of select="$checksum.media[not(id)]/checksum"/>
         </xsl:element>
       </xsl:element>
       <xsl:element name="metadata">
@@ -148,7 +145,7 @@
         <xsl:element name="Relationship" namespace="http://schemas.openxmlformats.org/package/2006/relationships">
           <xsl:attribute name="Id" select="string('rId1')"/>
           <xsl:attribute name="Type" select="string('http://schemas.openxmlformats.org/officeDocument/2006/relationships/image')"/>
-          <xsl:attribute name="Target" select="concat('media/',$checksum.list[not(id)]/rename)"/>
+          <xsl:attribute name="Target" select="concat('media/',$checksum.media[not(id)]/rename)"/>
         </xsl:element>
       </xsl:element>
     </xsl:result-document>
@@ -158,7 +155,7 @@
         <xsl:element name="Relationship" namespace="http://schemas.openxmlformats.org/package/2006/relationships">
           <xsl:attribute name="Id" select="string('rId1')"/>
           <xsl:attribute name="Type" select="string('http://schemas.openxmlformats.org/officeDocument/2006/relationships/image')"/>
-          <xsl:attribute name="Target" select="concat('media/',$checksum.list[not(id)]/rename)"/>
+          <xsl:attribute name="Target" select="concat('media/',$checksum.media[not(id)]/rename)"/>
         </xsl:element>
       </xsl:element>
     </xsl:result-document>
@@ -171,12 +168,7 @@
     <xsl:param name="group"/>
     <xsl:for-each-group select="$group" group-starting-with="w:p[fn:index-of($TOC,(w:pPr/w:pStyle/@w:val,'Geen')[1]) gt 0]">
       <xsl:variable name="index" select="position()"/>
-      <xsl:variable name="href">
-        <xsl:variable name="check">
-          <xsl:apply-templates select="current-group()[self::w:p][1]" mode="check"/>
-        </xsl:variable>
-        <xsl:value-of select="fn:string-join((fn:format-number($index,'000'),my:uri($check)),'_')"/>
-      </xsl:variable>
+      <xsl:variable name="href" select="fn:tokenize($checksum.text[$index]/name,'\.')[1]"/>
       <xsl:variable name="titel" select="fn:string-join(current-group()[self::w:p][1]//w:t)"/>
       <xsl:variable name="niveau" select="fn:index-of($TOC,(current-group()[self::w:p][1]/w:pPr/w:pStyle/@w:val,'Geen')[1])"/>
       <xsl:variable name="checksum">
@@ -209,17 +201,17 @@
           <xsl:element name="afbeelding">
             <xsl:attribute name="index" select="position()"/>
             <xsl:element name="naam">
-              <xsl:value-of select="$checksum.list[id=$rId]/rename"/>
+              <xsl:value-of select="$checksum.media[id=$rId]/rename"/>
             </xsl:element>
             <xsl:element name="omgevingswetbesluit">
               <xsl:attribute name="id" select="$omgevingswetbesluit.id"/>
               <xsl:value-of select="$omgevingswetbesluit"/>
             </xsl:element>
             <xsl:element name="type">
-              <xsl:value-of select="$checksum.list[id=$rId]/type"/>
+              <xsl:value-of select="$checksum.media[id=$rId]/type"/>
             </xsl:element>
             <xsl:element name="checksum">
-              <xsl:value-of select="$checksum.list[id=$rId]/checksum"/>
+              <xsl:value-of select="$checksum.media[id=$rId]/checksum"/>
             </xsl:element>
           </xsl:element>
         </xsl:for-each>
@@ -243,9 +235,9 @@
           <xsl:for-each select="current-group()//w:drawing//element()[@r:embed]">
             <xsl:element name="Relationship" namespace="http://schemas.openxmlformats.org/package/2006/relationships">
               <xsl:variable name="rId" select="@r:embed" as="xs:string"/>
-              <xsl:attribute name="Id" select="$checksum.list[id=$rId]/id"/>
+              <xsl:attribute name="Id" select="$checksum.media[id=$rId]/id"/>
               <xsl:attribute name="Type" select="string('http://schemas.openxmlformats.org/officeDocument/2006/relationships/image')"/>
-              <xsl:attribute name="Target" select="concat('media/',$checksum.list[id=$rId]/rename)"/>
+              <xsl:attribute name="Target" select="concat('media/',$checksum.media[id=$rId]/rename)"/>
             </xsl:element>
           </xsl:for-each>
         </xsl:element>
@@ -256,7 +248,7 @@
           <xsl:element name="Relationship" namespace="http://schemas.openxmlformats.org/package/2006/relationships">
             <xsl:attribute name="Id" select="string('rId1')"/>
             <xsl:attribute name="Type" select="string('http://schemas.openxmlformats.org/officeDocument/2006/relationships/image')"/>
-            <xsl:attribute name="Target" select="concat('media/',$checksum.list[not(id)]/rename)"/>
+            <xsl:attribute name="Target" select="concat('media/',$checksum.media[not(id)]/rename)"/>
           </xsl:element>
         </xsl:element>
       </xsl:result-document>
@@ -266,7 +258,7 @@
           <xsl:element name="Relationship" namespace="http://schemas.openxmlformats.org/package/2006/relationships">
             <xsl:attribute name="Id" select="string('rId1')"/>
             <xsl:attribute name="Type" select="string('http://schemas.openxmlformats.org/officeDocument/2006/relationships/image')"/>
-            <xsl:attribute name="Target" select="concat('media/',$checksum.list[not(id)]/rename)"/>
+            <xsl:attribute name="Target" select="concat('media/',$checksum.media[not(id)]/rename)"/>
           </xsl:element>
         </xsl:element>
       </xsl:result-document>
@@ -372,156 +364,5 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-  <!-- verwerk elementen voor berekening van de checksum -->
-
-  <xsl:template match="element()" mode="check">
-    <xsl:apply-templates mode="check"/>
-  </xsl:template>
-
-  <xsl:template match="text()" mode="check">
-    <xsl:value-of select="."/>
-  </xsl:template>
-
-  <xsl:template match="w:tc" mode="check">
-    <xsl:apply-templates mode="check"/>
-    <xsl:text>&#10;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:p" mode="check">
-    <xsl:for-each-group select="*" group-starting-with="w:r[w:fldChar]">
-      <xsl:choose>
-        <xsl:when test="current-group()[w:fldChar/@w:fldCharType='begin']">
-          <xsl:value-of select="concat('[',fn:string-join((tokenize(fn:string-join(current-group()//w:instrText),'\s+|&quot;|\* MERGEFORMAT')[. ne '']),' '),']')"/>
-        </xsl:when>
-        <xsl:when test="current-group()[w:fldChar/@w:fldCharType='separate']">
-          <!-- doe niets -->
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="current-group()" mode="check"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each-group>
-    <xsl:if test="following-sibling::w:p">
-      <xsl:text>&#10;</xsl:text>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="w:r" mode="check">
-    <xsl:apply-templates mode="check"/>
-  </xsl:template>
-
-  <xsl:template match="w:t" mode="check">
-    <xsl:apply-templates mode="check"/>
-  </xsl:template>
-
-  <xsl:template match="w:tab" mode="check">
-    <xsl:text>&#9;</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:instrText" mode="check">
-    <!-- doe niets -->
-  </xsl:template>
-
-  <xsl:template match="w:fldSimple" mode="check">
-    <xsl:value-of select="concat('[',normalize-space(@w:instr),']')"/>
-  </xsl:template>
-
-  <xsl:template match="w:EndnoteReference" mode="check">
-    <xsl:variable name="id" select="@w:id"/>
-    <xsl:text>[</xsl:text>
-    <xsl:apply-templates select="fn:document($endnotes,.)/w:Endnotes/w:Endnote[@w:id=$id]" mode="check"/>
-    <xsl:text>]</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:EndnoteRef" mode="check">
-    <xsl:text>ENDNOTEREF</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:footnoteReference" mode="check">
-    <xsl:variable name="id" select="@w:id"/>
-    <xsl:text>[</xsl:text>
-    <xsl:apply-templates select="fn:document($footnotes,.)/w:footnotes/w:footnote[@w:id=$id]" mode="check"/>
-    <xsl:text>]</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:footnoteRef" mode="check">
-    <xsl:text>FOOTNOTEREF</xsl:text>
-  </xsl:template>
-
-  <xsl:template match="w:drawing" mode="check">
-    <xsl:text>[IMAGEREF]</xsl:text>
-  </xsl:template>
-
-  <!-- functies -->
-
-  <xsl:function name="my:uri">
-    <xsl:param name="string"/>
-    <xsl:variable name="check_string">
-      <!-- controleer op velden, noten, enzovoorts -->
-      <xsl:for-each select="tokenize($string,'\[|\]')">
-        <xsl:choose>
-          <xsl:when test="contains(.,'NOTEREF')">
-            <!-- doe niets -->
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:for-each select="fn:string-to-codepoints(.)">
-              <xsl:choose>
-                <xsl:when test="(. ge 48) and (. le 57)">
-                  <!-- cijfers -->
-                  <node><xsl:value-of select="."/></node>
-                </xsl:when>
-                <xsl:when test="((. ge 65) and (. le 90)) or ((. ge 97) and (. le 122))">
-                  <!-- letters -->
-                  <node><xsl:value-of select="."/></node>
-                </xsl:when>
-                <xsl:when test="(. eq 45)">
-                  <!-- dash -->
-                  <node><xsl:value-of select="."/></node>
-                </xsl:when>
-                <xsl:when test="(. ge 224) and (. le 229)">
-                  <!-- leestekens a -->
-                  <node><xsl:value-of select="97"/></node>
-                </xsl:when>
-                <xsl:when test="(. eq 231)">
-                  <!-- leestekens c -->
-                  <node><xsl:value-of select="99"/></node>
-                </xsl:when>
-                <xsl:when test="(. ge 232) and (. le 235)">
-                  <!-- leestekens e -->
-                  <node><xsl:value-of select="101"/></node>
-                </xsl:when>
-                <xsl:when test="(. ge 236) and (. le 239)">
-                  <!-- leestekens i -->
-                  <node><xsl:value-of select="105"/></node>
-                </xsl:when>
-                <xsl:when test="(. eq 241)">
-                  <!-- leestekens n -->
-                  <node><xsl:value-of select="110"/></node>
-                </xsl:when>
-                <xsl:when test="(. ge 242) and (. le 246)">
-                  <!-- leestekens o -->
-                  <node><xsl:value-of select="111"/></node>
-                </xsl:when>
-                <xsl:when test="(. ge 249) and (. le 252)">
-                  <!-- leestekens u -->
-                  <node><xsl:value-of select="117"/></node>
-                </xsl:when>
-                <xsl:when test="(. eq 253) and (. eq 255)">
-                  <!-- leestekens y -->
-                  <node><xsl:value-of select="121"/></node>
-                </xsl:when>
-                <xsl:when test="(. eq 32)">
-                  <!-- spatie -->
-                  <node><xsl:value-of select="95"/></node>
-                </xsl:when>
-              </xsl:choose>
-            </xsl:for-each>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:for-each>
-    </xsl:variable>
-    <xsl:value-of select="fn:codepoints-to-string($check_string/node)"/>
-  </xsl:function>
 
 </xsl:stylesheet>

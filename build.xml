@@ -5,19 +5,8 @@
   <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"/>
 
   <property name="input.dir" value="input"/>
-  <property name="lib.dir" value="lib"/>
   <property name="output.dir" value="output"/>
   <property name="temp.dir" value="temp"/>
-
-  <!-- initialiseer jar-files tijdelijk -->
-
-  <target name="jar" description="Initialiseer jar-files">
-    <path id="build.classpath">
-      <fileset dir="${lib.dir}">
-        <include name="commons-codec-1.9.jar"/>
-      </fileset>
-    </path>
-  </target>
 
   <!-- initialiseer mappen -->
 
@@ -38,11 +27,21 @@
     </unzip>
   </target>
 
-  <!-- maak hash-code -->
+  <!-- maak checksum -->
 
-  <target name="checksum" description="Maak hash-codes">
+  <target name="split.txt" description="Splits word-document naar txt">
+    <pathconvert property="input.fullname" refid="input.id"/>
+    <basename property="input.name" file="${input.fullname}"/>
+    <xslt in="${temp.dir}/template/word/document.xml" out="${output.dir}/manifest.xml" style="tpod_txt.xsl" processor="trax" force="true">
+      <param name="base.dir" expression="${basedir}"/>
+      <param name="input.name" expression="${input.name}"/>
+    </xslt>
+  </target>
+
+  <target name="checksum" description="Maak checksum">
     <foreach target="checksum.execute" param="file.fullname">
       <path>
+        <fileset dir="${temp.dir}/text"/>
         <fileset dir="${temp.dir}/template/word/media"/>
       </path>
     </foreach>
@@ -64,7 +63,9 @@
   <target name="media" description="verplaats en hernoem media">
     <foreach target="media.execute" param="file.fullname">
       <path>
-        <fileset dir="${temp.dir}/checksum"/>
+        <fileset dir="${temp.dir}/checksum">
+          <include name="image*.*"/>
+        </fileset>
       </path>
     </foreach>
   </target>
@@ -75,7 +76,7 @@
         <param name="file.name" path="name/text()"/>
         <param name="file.rename" path="rename/text()"/>
         <actions>
-          <move file="${temp.dir}/template/word/media/@{file.name}" tofile="${temp.dir}/media/@{file.rename}"/>
+          <move file="${temp.dir}/template/word/media/@{file.name}" tofile="${temp.dir}/media/@{file.rename}" failonerror="no"/>
         </actions>
       </call>
     </xmltask>
@@ -83,10 +84,10 @@
 
   <!-- transformeer xml-bestanden -->
 
-  <target name="transform" description="Splits word-bestand">
+  <target name="split.xml" description="Splits word-bestand naar xml">
     <pathconvert property="input.fullname" refid="input.id"/>
     <basename property="input.name" file="${input.fullname}"/>
-    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_splitsen.xsl" processor="trax" force="true" classpathref="build.classpath">
+    <xslt in="${temp.dir}/template/word/document.xml" out="${temp.dir}/fragmenten/manifest.xml" style="tpod_xml.xsl" processor="trax" force="true">
       <param name="base.dir" expression="${basedir}"/>
       <param name="input.name" expression="${input.name}"/>
     </xslt>
@@ -148,6 +149,6 @@
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="init,jar,unzip,checksum,media,transform,compile,zip,manifest"/>
+  <target name="main" description="Totale transformatie" depends="init,unzip,split.txt,checksum,media,split.xml,compile,zip,manifest"/>
 
 </project>
