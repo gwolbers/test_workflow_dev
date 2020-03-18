@@ -21,4 +21,4 @@ jobs:
         name: result
         path: output
     - name: Save to repository
-      run: remote add origin https://github.com/gwolbers/test_workflow  
+      run: git remote add origin https://github.com/gwolbers/test_workflow
