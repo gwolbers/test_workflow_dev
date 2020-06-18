@@ -16,17 +16,16 @@ jobs:
         java-version: 1.8
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml -lib ./lib
+    - name: Commit files
+      run: |
+        git config --local user.email "g.wolbers@geonovum.nl"
+        git add ./output
+        git commit -m "Updating the repository"
     - name: Checkout _dev
       uses: actions/checkout@v2
       with:
         repository: gwolbers/test_workflow_dev
         path: test_workflow_dev
-    - name: Commit files
-      run: |
-        git config --local user.email "g.wolbers@geonovum.nl"
-        git config --local user.name "gwolbers"
-        git add ./output
-        git commit -m "Updating the repository"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
