@@ -5,12 +5,12 @@ branding:
   icon: upload-cloud
   color: green
 inputs:
-  github_token: 'test_token'
+  github_token:
     description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
   repository:
     description: 'Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})'
-    default: 'test_workflow_dev'
+    default: ''
     required: false
   branch:
     description: 'Destination branch to push changes'
@@ -25,7 +25,7 @@ inputs:
   directory:
     description: 'Directory to change to before pushing.'
     required: false
-    default: '.'
+    default: 'output'
 runs:
   using: 'node12'
   main: 'start.js'
