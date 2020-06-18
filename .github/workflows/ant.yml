@@ -27,10 +27,10 @@ jobs:
       with:
         repository: gwolbers/test_workflow_dev
         path: test_workflow_dev
+        persist-credentials: 6d5a3794581d264521311bf886e12df17995b4e1
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
         repository: gwolbers/test_workflow_dev
-        persist-credentials: 6d5a3794581d264521311bf886e12df17995b4e1
