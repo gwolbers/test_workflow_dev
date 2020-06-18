@@ -10,8 +10,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      with:
-        path: main
+        repository: gwolbers/test_workflow
+        path: test_workflow
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
