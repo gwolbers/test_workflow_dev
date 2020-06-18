@@ -8,9 +8,9 @@ inputs:
   github_token:
     description: 'Token for the repo. Can be passed in using $\{{ secrets.GITHUB_TOKEN }}'
     required: true
-  repository: https://github.com/gwolbers/test_workflow_dev.git
+  repository:
     description: 'Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})'
-    default: ''
+    default: 'https://github.com/gwolbers/test_workflow_dev.git'
     required: false
   branch:
     description: 'Destination branch to push changes'
