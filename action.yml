@@ -10,7 +10,7 @@ inputs:
     required: true
   repository:
     description: 'Repository name to push. Default or empty value represents current github repository (${GITHUB_REPOSITORY})'
-    default: 'https://github.com/gwolbers/test_workflow_dev.git'
+    default: 'test_workflow_dev'
     required: false
   branch:
     description: 'Destination branch to push changes'
