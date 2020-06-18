@@ -20,11 +20,10 @@ jobs:
       run: |
         git config --local user.email "g.wolbers@geonovum.nl"
         git config --local user.name "gwolbers"
-        git add ./output
+        git add ./dev
         git commit -m "Updating the repository"
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
-        directory: dev
