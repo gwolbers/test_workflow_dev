@@ -27,4 +27,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
-        repository: https://github.com/gwolbers/test_workflow_dev
+        repository: gwolbers/test_workflow_dev
