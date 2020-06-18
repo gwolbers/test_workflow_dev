@@ -25,6 +25,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: e13dcd8ffe5aff89df544d7ab6f75d02b4cf25da
+        github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
-        repository: gwolbers/test_workflow_dev
+        repository: https://github.com/gwolbers/test_workflow_dev
