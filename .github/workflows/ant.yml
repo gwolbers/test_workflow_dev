@@ -25,6 +25,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: 6d5a3794581d264521311bf886e12df17995b4e1
+        github_token: e13dcd8ffe5aff89df544d7ab6f75d02b4cf25da
         force: true
         repository: test_workflow_dev
