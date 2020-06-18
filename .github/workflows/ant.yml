@@ -8,7 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout
+      uses: actions/checkout@v2
+        with:
+          path: main
+    - name: Checkout _dev
+      uses: actions/checkout@v2
+        with:
+          repository: gwolbers/test_workflow_dev
+          path: test_workflow_dev
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
