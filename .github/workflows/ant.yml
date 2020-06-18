@@ -9,10 +9,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
-      with:
-        persist-credentials: 869de9a04af35e076adeab53336c0b01a82f3a0b
-        fetch-depth: 0
+      uses: actions/checkout@v2
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
@@ -30,4 +27,4 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         force: true
-        repository: gwolbers/test_workflow_dev
+        path: dev
