@@ -18,6 +18,7 @@ jobs:
     - name: Commit files
       run: |
         git config --local user.name "gwolbers"
+        git config --local user.name "g.wolbers@geonovum.nl"
         git add ./output
         git commit -m "Updating the repository"
     - name: Push changes
