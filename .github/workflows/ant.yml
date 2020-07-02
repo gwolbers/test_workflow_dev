@@ -10,8 +10,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      env:
-        USER_TOKEN: ${{ secrets.USER_TOKEN }}
+      with:
+        persist-credentials: false
+        fetch-depth: 0
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
