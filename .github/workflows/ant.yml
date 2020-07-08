@@ -28,10 +28,10 @@ jobs:
         git config --local user.name gwolbers
         git add ./output
         git commit -m "Update de repository"
-        git pull remote origin
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.USER_TOKEN }}
         directory: ./output
         repository: gwolbers/test_workflow_dev
+        force: true
