@@ -1,6 +1,9 @@
 name: Java CI
 
-on: [push]
+on:
+  push:
+    paths:
+    - 'input/**.docx'
 
 jobs:
   build:
@@ -30,5 +33,5 @@ jobs:
       with:
         github_token: ${{ secrets.USER_TOKEN }}
         force: true
-        directory: './output'
-        repository: 'gwolbers/test_workflow_dev'
+        directory: ./output
+        repository: gwolbers/test_workflow_dev
