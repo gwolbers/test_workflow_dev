@@ -28,7 +28,7 @@ jobs:
         git config --local user.name gwolbers
         git add ./output
         git commit -m "Update de repository"
-        git pull
+        git pull remote origin
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
