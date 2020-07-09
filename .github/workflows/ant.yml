@@ -26,6 +26,7 @@ jobs:
       run: |
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
+        git pull
         git add ./output
         git commit -m "Update de repository"
     - name: Push changes
