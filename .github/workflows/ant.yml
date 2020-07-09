@@ -29,6 +29,7 @@ jobs:
         git add ./output
         git commit -m "Update de repository"
         git fetch
+        git rebase master
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
