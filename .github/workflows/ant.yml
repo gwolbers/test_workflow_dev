@@ -27,8 +27,13 @@ jobs:
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
         git add ./output
-        git commit -m "Update de repository"
-        git pull origin master
+        git commit -m "Update output"
+    - name: Checkout dev
+      uses: actions/checkout@v2
+      with:
+        github_token: ${{ secrets.USER_TOKEN }}
+        directory: './output'
+        repository: 'gwolbers/test_workflow_dev'
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
