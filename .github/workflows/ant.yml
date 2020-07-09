@@ -26,10 +26,9 @@ jobs:
       run: |
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
+        git fetch
         git add ./output
         git commit -m "Update de repository"
-        git fetch
-        git rebase origin/master
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
