@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
       with:
         persist-credentials: false
         fetch-depth: 0
@@ -34,3 +34,4 @@ jobs:
         github_token: ${{ secrets.USER_TOKEN }}
         directory: './output'
         repository: 'gwolbers/test_workflow_dev'
+        force: true
