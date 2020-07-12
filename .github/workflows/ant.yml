@@ -32,15 +32,4 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.USER_TOKEN }}
-        directory: ./output
-    - name: Commit files
-      run: |
-        git config --local user.email g.wolbers@geonovum.nl
-        git config --local user.name gwolbers
-        git add ./output
-        git commit -m "Append changes" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.USER_TOKEN }}
         repository: gwolbers/test_workflow_dev
