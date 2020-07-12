@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@master
       with:
         persist-credentials: false
         fetch-depth: 0
@@ -27,7 +27,14 @@ jobs:
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
         git add ./output
-        git commit -m "Update output" -a
+        git commit -m "Update output"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+    - name: Commit files
+      run: |
+        git config --local user.email g.wolbers@geonovum.nl
+        git config --local user.name gwolbers
+        git commit -m "Append changes" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
