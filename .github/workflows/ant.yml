@@ -27,7 +27,6 @@ jobs:
         cd ./output
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
-        git add .
         git commit -am "Update output"
     - name: Push changes
       uses: ad-m/github-push-action@master
