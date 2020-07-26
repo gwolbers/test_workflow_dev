@@ -19,11 +19,12 @@ jobs:
         java-version: 1.8
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml -lib ./lib
-    - name: Push output
-      uses: x-actions/gh-pages@release/v1
+    - name: Pushes to another repository
+      uses: cpina/github-action-push-to-another-repository@master
       env:
-        GITHUB_EMAIL: "g.wolbers@geonovum.nl"
-        GITHUB_USERNAME: "gwolbers"
-        PUBLISH_REPO: https://${{ secrets.USER_TOKEN }}@github.com/gwolbers/test_workflow_dev
-        PUBLISH_BRANCH: master
-        PUBLISH_DIR: ./output
+        API_TOKEN_GITHUB: ${{ secrets.USER_TOKEN }}
+      with:
+        source-directory: 'output'
+        destination-github-username: 'gwolbers'
+        destination-repository-name: 'test_workflow_dev'
+        user-email: g.wolbers@geonovum.nl
