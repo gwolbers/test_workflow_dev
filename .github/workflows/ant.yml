@@ -34,4 +34,3 @@ jobs:
         github_token: ${{ secrets.USER_TOKEN }}
         directory: 'output'
         repository: 'gwolbers/test_workflow_dev'
-        force: true
