@@ -26,4 +26,4 @@ jobs:
         GITHUB_USERNAME: "gwolbers"
         PUBLISH_REPO: https://${{ secrets.USER_TOKEN }}@github.com/gwolbers/test_workflow_dev
         PUBLISH_BRANCH: master
-        PUBLISH_DIR: ./output/
+        PUBLISH_DIR: ./output
