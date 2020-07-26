@@ -24,14 +24,15 @@ jobs:
       run: ant -noinput -buildfile build.xml -lib ./lib
     - name: Commit files
       run: |
+        cd ./output
         git config --local user.email g.wolbers@geonovum.nl
         git config --local user.name gwolbers
-        git add ./output
+        git add .
         git commit -m "Update output"
     - name: Push changes
-      uses: ad-m/github-push-action@v0.6.0
+      uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.USER_TOKEN }}
-        directory: './output'
+        directory: 'output'
         repository: 'gwolbers/test_workflow_dev'
-        force: false
+        force: true
