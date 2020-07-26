@@ -138,17 +138,32 @@
 
   <target name="zip.execute">
     <basename property="file.name" file="${dir.name}"/>
-    <zip basedir="${dir.name}" destfile="${output.dir}/${file.name}.docx"/>
+    <zip basedir="${dir.name}" destfile="${temp.dir}/output/${file.name}.docx"/>
   </target>
 
   <!-- transformeer manifest-bestand -->
 
   <target name="manifest" description="Kopieer manifest-bestand">
-    <xslt in="${temp.dir}/fragmenten/manifest.xml" out="${output.dir}/manifest.xml" style="tpod_manifest.xsl" processor="trax" force="true"/>
+    <xslt in="${temp.dir}/fragmenten/manifest.xml" out="${temp.dir}/output/manifest.xml" style="tpod_manifest.xsl" processor="trax" force="true"/>
+  </target>
+
+  <!-- verplaats output -->
+
+  <target name="output" description="Verplaats">
+    <xmltask source="${temp.dir}/fragmenten/manifest.xml">
+      <call path="manifest/colofon/metadata/data[@name='ID03']">
+        <param name="file.id" path="@value"/>
+        <actions>
+          <copy todir="${output.dir}/@{file.id}">
+            <fileset dir="${temp.dir}/output"/>
+          </copy>
+        </actions>
+      </call>
+    </xmltask>
   </target>
 
   <!-- totale transformatie -->
 
-  <target name="main" description="Totale transformatie" depends="init,unzip,split.txt,checksum,media,split.xml,compile,zip,manifest"/>
+  <target name="main" description="Totale transformatie" depends="init,unzip,split.txt,checksum,media,split.xml,compile,zip,manifest,output"/>
 
 </project>
