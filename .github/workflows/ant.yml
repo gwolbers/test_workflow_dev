@@ -13,18 +13,24 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        persist-credentials: false
+        fetch-depth: 0
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
     - name: Build with Ant
       run: ant -noinput -buildfile build.xml -lib ./lib
-    - name: Pushes to another repository
-      uses: cpina/github-action-push-to-another-repository@master
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.USER_TOKEN }}
+    - name: Commit files
+      run: |
+        git config --local user.email [mail]
+        git config --local user.name [user]
+        git add ./output
+        git commit -m "Update output"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
       with:
-        source-directory: 'output'
-        destination-github-username: 'gwolbers'
-        destination-repository-name: 'test_workflow_dev'
-        user-email: g.wolbers@geonovum.nl
+        github_token: ${{ secrets.USER_TOKEN }}
+        directory: './output'
+        repository: '[user]/test_workflow_dev'
