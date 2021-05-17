@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <manifest>
    <naam>Werkversie Omgevingsverordening 1.0.docx</naam>
-   <datum>2021-05-17T18:43:35.832Z</datum>
+   <datum>2021-05-17T21:02:59.4Z</datum>
    <colofon index="0">
       <naam>000_Colofon.docx</naam>
       <omgevingswetbesluit id="ov">omgevingsverordening</omgevingswetbesluit>
@@ -2513,11 +2513,11 @@
    </document>
    <document index="263">
       <naam>003_Aanleiding.docx</naam>
-      <omgevingswetbesluit id="ov">omgevingsverordening</omgevingswetbesluit>
+      <omgevingswetbesluit id="bt">basistekst</omgevingswetbesluit>
       <versie>1.0</versie>
       <titel>Voorbeeld</titel>
       <niveau>5</niveau>
-      <checksum>eb8ff5603798a813a391c71ca016b64c</checksum>
+      <checksum>dd201d3238f9a4bc28a91e117175da60</checksum>
       <afbeelding index="1">
          <naam>image_bb99e6689da97047b0f14aafc481cfc8.png</naam>
          <omgevingswetbesluit id="ov">omgevingsverordening</omgevingswetbesluit>
