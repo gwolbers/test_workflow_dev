@@ -32,6 +32,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.USER_TOKEN }}
+        force: true
         repository: 'gwolbers/test_workflow_dev'
         branch: ${{ github.ref }}
         directory: './output'
