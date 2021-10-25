@@ -1,12 +1,12 @@
 var respecConfig =
 {
   pubDomain: "ow",
-  specStatus: "GN-DV",
+  specStatus: "GN-DEF",
   specType: "ST",
   license: "cc-by-nd",
   publishDate: "2021-09-08",
   previousPublishDate: "2021-07-05",
-  previousMaturity: "GN-DV",
+  previousMaturity: "GN-DEF",
   authors: [
     {
       name: "Richard de Graaf",
